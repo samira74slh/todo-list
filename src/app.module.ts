@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ThrottlerConfigService } from './shared/config/throttler-config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import localConfig from './shared/config/local-config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseConfigService } from './shared/config/mongoose-config';
 
 @Module({
   imports: [
@@ -14,6 +16,10 @@ import localConfig from './shared/config/local-config';
       imports: [ConfigModule],
       useClass: ThrottlerConfigService,
     }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useClass: MongooseConfigService
+    })
   ],
   controllers: [],
   providers: [],
