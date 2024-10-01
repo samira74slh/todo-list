@@ -1,7 +1,10 @@
+import { FilterQuery, ObjectId, Types } from 'mongoose';
+
 export interface IRepository<T> {
     create(entity: T): Promise<T>;
-    findById(id: string): Promise<T | null>;
+    findOne(filter: FilterQuery<T>): Promise<T | null>;
+    findById(id: Types.ObjectId): Promise<T | null>;
     findAll(): Promise<T[]>;
-    update(id: string, entity: T): Promise<T>;
-    delete(id: string): Promise<void>;
+    update(id: Types.ObjectId, entity: T): Promise<T>;
+    delete(id: Types.ObjectId): Promise<void>;
 }

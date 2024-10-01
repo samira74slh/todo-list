@@ -8,5 +8,5 @@ export default registerAs('local', () => ({
   origin: process.env.ORIGIN,
   databaseUrl: process.env.DATABASE_URL,
   jwtAccessTokenSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
- 
+  jwtExpireIn: process.env.JWT_EXPIRE_IN
 }));

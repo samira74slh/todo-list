@@ -18,15 +18,15 @@ export class Password {
         return value.length >= 8;
     }
 
-    public getValue(): string {
+    public async getValue(): Promise<string> {
         return this.hash();
     }
 
-    public hash(): string {
+    public async hash(): Promise<string> {
         return bcrypt.hash(this._value, 10);
     }
 
     public async compare(password: string): Promise<boolean> {
-        return await bcrypt.compare(password, this._value);
+        return await bcrypt.compare(this._value, password);
     }
 }

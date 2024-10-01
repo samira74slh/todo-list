@@ -1,6 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetUserByIdQuery } from '../queries/get-user.query';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
+import { Types } from 'mongoose';
 
 @QueryHandler(GetUserByIdQuery)
 export class GetUserHandler implements IQueryHandler<GetUserByIdQuery> {
