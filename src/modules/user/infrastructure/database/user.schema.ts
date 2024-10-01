@@ -4,12 +4,9 @@ import { Document } from "mongoose";
 
 @Schema({ timestamps: true, validateBeforeSave: true, })
 
-export class User extends Document {
-    @Prop({ required: true })
-    name: string;
-
+export class User {
     @Prop({ required: true, unique: true })
-    email: string;
+    username: string;
 
     @Prop({ required: true })
     password: string;

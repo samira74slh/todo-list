@@ -11,9 +11,10 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
 
     async execute(command: CreateUserCommand) {
         //todo add new Password in userservice
-        const { password, ...data } = command;
-        return this.userRepository.create(
-            new User({ ...data, password: password.getValue })
-        );
+        const { password, username } = command;
+        let user = new User();
+        user.username = username;
+        user.password = password.getValue();
+        return this.userRepository.create(user);
     }
 }

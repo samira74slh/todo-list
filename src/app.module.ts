@@ -19,9 +19,8 @@ import { MongooseConfigService } from './shared/config/mongoose-config';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useClass: MongooseConfigService
-    })
-  ],
-  controllers: [],
-  providers: [],
+    }),
+    
+  ]
 })
 export class AppModule { }
