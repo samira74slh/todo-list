@@ -1,7 +1,7 @@
 import { IRepository } from "src/shared/interfaces/repository.interface";
 import { TodoItem, TodoItemDocument } from '../database/todo-item.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model, Types } from "mongoose";
+import { FilterQuery, Model, RootFilterQuery, Types } from "mongoose";
 
 export class TodoItemRepository implements IRepository<TodoItem> {
     constructor(
@@ -13,10 +13,6 @@ export class TodoItemRepository implements IRepository<TodoItem> {
         await Promise.all(newTodoItems.map(async item => item.toObject()))
         return newTodoItems;
     }
-
-    // async findOne(filter: FilterQuery<TodoItem>): Promise<TodoItemDocument | null> {
-    //     return await this.todoItemRepository.findOne(filter).lean();
-    // }
 
     async findById(id: Types.ObjectId): Promise<TodoItemDocument | null> {
         return await this.todoItemRepository.findById(id);
@@ -37,5 +33,9 @@ export class TodoItemRepository implements IRepository<TodoItem> {
 
     async delete(id: Types.ObjectId): Promise<void> {
         return await this.todoItemRepository.findByIdAndDelete(id);
+    }
+
+    async deleteMany(filter: RootFilterQuery<TodoItem>): Promise<any> {
+        return await this.todoItemRepository.deleteMany(filter);
     }
 }

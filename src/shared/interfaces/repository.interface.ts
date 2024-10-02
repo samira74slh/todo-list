@@ -1,4 +1,4 @@
-import { FilterQuery, Types, UpdateQuery } from 'mongoose';
+import { FilterQuery, RootFilterQuery, Types, UpdateQuery } from 'mongoose';
 
 export interface IRepository<T> {
     create?(entity: T): Promise<T>;
@@ -9,4 +9,5 @@ export interface IRepository<T> {
     find?(filter: FilterQuery<T>): Promise<T[]>;
     update?(id: Types.ObjectId, entity: UpdateQuery<T>): Promise<T>;
     delete?(id: Types.ObjectId): Promise<void>;
+    deleteMany?(filter: RootFilterQuery<T>): Promise<void>;
 }

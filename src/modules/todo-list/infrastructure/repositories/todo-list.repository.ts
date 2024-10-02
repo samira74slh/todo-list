@@ -2,8 +2,6 @@ import { IRepository } from "src/shared/interfaces/repository.interface";
 import { TodoList, TodoListDocument } from '../database/todo-list.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types, UpdateQuery } from "mongoose";
-import { TodoItem } from "src/modules/todo-item/infrastructure/database/todo-item.schema";
-import { first } from "rxjs";
 
 export class TodoListRepository implements IRepository<TodoList> {
     constructor(
@@ -28,9 +26,8 @@ export class TodoListRepository implements IRepository<TodoList> {
     }
 
     async find(filter: FilterQuery<TodoList>): Promise<TodoListDocument[]> {
-        filter = { userId: new Types.ObjectId('66fc02905a7101c14fedf432') }
         return await this.todoListRepository.find(filter)
-            .populate(TodoItem.name)
+            // .populate(TodoItem.name)
             .lean();
     }
 
@@ -39,12 +36,13 @@ export class TodoListRepository implements IRepository<TodoList> {
         if (todoItems) {
             filter = {
                 ...filter,
-                $push: { todoItems: todoItems }
+                $push: { todoItems: { $each: todoItems } }
             }
             let upTodoList = await this.todoListRepository.findByIdAndUpdate(id, filter, { new: true });
             return upTodoList.toObject();
         }
     }
+
     async delete(id: Types.ObjectId): Promise<void> {
         return await this.todoListRepository.findByIdAndDelete(id);
     }

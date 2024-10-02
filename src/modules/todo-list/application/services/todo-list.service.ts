@@ -43,8 +43,7 @@ export class TodoListService {
         try {
             let { userId } = await this.queryBus.execute(new GetTodoListByIdQuery(id));
             if (userId == user._id) {
-                //todo :delete items saga
-                return await this.commandBus.execute(new DeleteTodoListCommand(id));
+                return await this.eventBus.publish(new DeleteTodoListCommand(id));
             } else return 'Not permission';
 
         } catch (error) {

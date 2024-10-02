@@ -9,9 +9,10 @@ export class UpdateTodoListHandler implements ICommandHandler<UpdateTodoListComm
         private readonly todoListRepository: TodoListRepository
     ) { }
 
-    async execute({ id, title }: UpdateTodoListCommand): Promise<TodoListDocument> {
+    async execute({ id, title, todoItems }: UpdateTodoListCommand): Promise<TodoListDocument> {
         let todoList = new TodoList();
         todoList.title = title;
+        todoList.todoItems = todoItems;
         return await this.todoListRepository.update(id, todoList);
     }
 }

@@ -10,6 +10,6 @@ export class AddUserTodoListsHandller implements ICommandHandler<AddUserTodoList
     ) { }
 
     async execute({ id, todoLists }: AddUserTodoListsCommand): Promise<UserDocument> {
-        return await this.userRepository.update(id, { $push: { todoItems: todoLists } },)
+        return await this.userRepository.update(id, { $push: { todoLists: { $each: todoLists } } })
     }
 }

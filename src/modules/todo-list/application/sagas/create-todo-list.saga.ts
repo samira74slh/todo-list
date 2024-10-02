@@ -19,7 +19,7 @@ export class CreateTodoListSagas {
     ) { }
 
     @Saga()
-    dragonKilled = (events$: Observable<any>): Observable<ICommand> => {
+    createTodoListSaga = (events$: Observable<any>): Observable<ICommand> => {
         return events$.pipe(
             ofType(CreateTodoListEvent),
             map(async ({ title, todoItems, userId }: CreateTodoListEvent) => {

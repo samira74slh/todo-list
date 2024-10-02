@@ -20,14 +20,14 @@ export class TodoItemController {
     ) { }
 
     @ApiOperation({ summary: 'Creat New todo items' })
-    @ApiConsumes('application/x-www-form-urlencoded')
+    @ApiConsumes('application/json')
     @ApiCreatedResponse({ type: '' })
     @Post('todo/itm')
     async bulkCreateTodoItem(
         @Body() todoItems: BulkCreateTodoItemDto,
         @Res() res: Response
     ) {
-        let response = await this.todoService.createTodoItem(todoItems);
+        let response = await this.todoService.bulkCreateTodoItem(todoItems);
         res.status(HttpStatus.CREATED).json(response);
     }
 

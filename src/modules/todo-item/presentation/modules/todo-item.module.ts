@@ -12,6 +12,7 @@ import { UpdateTodoItemHandler } from "../../application/handlers/update-todo-it
 import { DeleteTodoItemHandler } from "../../application/handlers/delete-todo-item.handler";
 import { UserModule } from "src/modules/user/presentation/modules/user.module";
 import { TodoListModule } from "src/modules/todo-list/presentation/modules/todo-list.module";
+import { BulkCreateTodoItemsSagas } from "../../application/sagas/bulk-create-todo-items.saga";
 
 @Module({
     imports: [
@@ -24,6 +25,7 @@ import { TodoListModule } from "src/modules/todo-list/presentation/modules/todo-
     providers: [
         TodoItemService,
         TodoItemRepository,
+        BulkCreateTodoItemsSagas,
         BulkCreateTodoItemHandler,
         UpdateTodoItemHandler,
         DeleteTodoItemHandler,

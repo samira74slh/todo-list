@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { CommandBus, EventBus, QueryBus } from "@nestjs/cqrs";
 import { BulkCreateTodoItemDto } from "../dto/create-todo-item.dto";
 import { UserDocument } from "src/modules/user/infrastructure/database/user.schema";
 import { UpdateTodoItemDto } from "../dto/update-todo-item.dto";
@@ -12,21 +12,19 @@ import { TodoItemDocument } from '../../infrastructure/database/todo-item.schema
 import { Priority } from '../../domain/value-objects/priority.vo';
 import { ETodoItem } from '../../domain/entities/todo-item.entity';
 import { BulkCreateTodoItemCommand } from '../commands/bulk-create-todo-item.command';
+import { BulkCreateTodoListEvent } from '../events/bulk-create-todo-items.event';
 
 @Injectable()
 export class TodoItemService {
     constructor(
         private readonly commandBus: CommandBus,
-        private readonly queryBus: QueryBus
+        private readonly queryBus: QueryBus,
+        private readonly eventBus: EventBus,
     ) { }
 
-    async createTodoItem({ todoItems }: BulkCreateTodoItemDto): Promise<TodoItemDocument> {
+    async bulkCreateTodoItem({ todoItems }: BulkCreateTodoItemDto): Promise<TodoItemDocument> {
         try {
-            let items: ETodoItem[] = [];
-            for (const { title, todoListId, description, priority } of todoItems) {
-                items.push(new ETodoItem(null, title, description, todoListId, new Priority(priority)));
-            }
-            return await this.commandBus.execute(new BulkCreateTodoItemCommand(items));
+            return await this.eventBus.publish(new BulkCreateTodoListEvent(todoItems));
         } catch (error) {
             throw new Error(error);
         }
@@ -54,7 +52,7 @@ export class TodoItemService {
 
     async getAllUserTodoItems({ id }: IdDTo): Promise<TodoItemDocument[] | string> {
         try {
-                return await this.queryBus.execute(new GetTodoItemsQuery(id));
+            return await this.queryBus.execute(new GetTodoItemsQuery(id));
         } catch (error) {
             throw new Error(error);
         }
