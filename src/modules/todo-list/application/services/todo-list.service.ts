@@ -1,7 +1,6 @@
 import { Injectable, Param } from '@nestjs/common';
-import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { CommandBus, EventBus, QueryBus } from "@nestjs/cqrs";
 import { CreateTodoListDto } from "../dto/create-todo-list.dto";
-import { CreateTodoListCommand } from "../commands/create-todo-list.command";
 import { UserDocument } from "src/modules/user/infrastructure/database/user.schema";
 import { UpdateTodoListDto } from "../dto/update-todo-list.dto";
 import { IdDTo } from '../../../../shared/dto/id.dto';
@@ -10,19 +9,19 @@ import { DeleteTodoListCommand } from '../commands/delete-todo-list.command';
 import { GetTodoListsQuery } from '../queries/get-todo-listes.query';
 import { GetTodoListByIdQuery } from '../queries/get-todo-list.query';
 import { TodoListDocument } from '../../infrastructure/database/todo-list.schema';
-import { GetTodoListByIdHandler } from '../handlers/get-todo-list.handler';
+import { CreateTodoListEvent } from '../events/create-todo-list.event';
 
 @Injectable()
 export class TodoListService {
     constructor(
         private readonly commandBus: CommandBus,
-        private readonly queryBus: QueryBus
+        private readonly queryBus: QueryBus,
+        private readonly eventBus: EventBus,
     ) { }
 
     async createTodoList({ title, todoItems }: CreateTodoListDto, { _id }: UserDocument): Promise<TodoListDocument> {
         try {
-            //todo :if todoItem >> creat items
-            return await this.commandBus.execute(new CreateTodoListCommand(null, title, _id, todoItems));
+            return await this.eventBus.publish(new CreateTodoListEvent(title, _id, todoItems));
         } catch (error) {
             throw new Error(error);
         }
@@ -56,7 +55,6 @@ export class TodoListService {
     async getAllUserTodoLists({ id }: IdDTo, user: UserDocument): Promise<TodoListDocument[] | string> {
         try {
             if (id == user._id) {
-                console.log()
                 return await this.queryBus.execute(new GetTodoListsQuery(id));
             } else return 'Not permission';
         } catch (error) {

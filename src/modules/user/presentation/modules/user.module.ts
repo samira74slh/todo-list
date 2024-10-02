@@ -12,6 +12,7 @@ import { GetUserByFilterHandler } from "../../application/handlers/get-user-by-f
 import { TodoItemModule } from "src/modules/todo-item/presentation/modules/todo-item.module";
 import { TodoListModule } from "src/modules/todo-list/presentation/modules/todo-list.module";
 import { SendWelcomeMsgHandler } from "../../application/handlers/user-welcome.handler";
+import { AddUserTodoListsHandller } from "../../application/handlers/add-user-todo-lists.handller";
 
 @Module({
     imports: [
@@ -29,7 +30,8 @@ import { SendWelcomeMsgHandler } from "../../application/handlers/user-welcome.h
         CreateUserHandler,
         GetUserHandler,
         GetUserByFilterHandler,
-        SendWelcomeMsgHandler
+        SendWelcomeMsgHandler,
+        AddUserTodoListsHandller
     ],
     exports: [UserService]
 })

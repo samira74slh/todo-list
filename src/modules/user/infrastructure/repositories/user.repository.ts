@@ -1,6 +1,6 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument } from "../../infrastructure/database/user.schema";
-import { FilterQuery, Model, Types } from "mongoose";
+import { FilterQuery, Model, Types, UpdateQuery } from "mongoose";
 import { IRepository } from "src/shared/interfaces/repository.interface";
 
 
@@ -30,7 +30,7 @@ export class UserRepository implements IRepository<User> {
         return await this.userRepository.find(filter).lean();
     }
 
-    async update(id: Types.ObjectId, user: User): Promise<UserDocument> {
+    async update(id: Types.ObjectId, user: UpdateQuery<User>): Promise<UserDocument> {
         let upUser = await this.userRepository.findByIdAndUpdate(id, user, { new: true });
         return upUser.toObject();
     }

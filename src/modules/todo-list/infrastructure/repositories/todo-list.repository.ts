@@ -1,8 +1,9 @@
 import { IRepository } from "src/shared/interfaces/repository.interface";
 import { TodoList, TodoListDocument } from '../database/todo-list.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model, Types } from "mongoose";
+import { FilterQuery, Model, Types, UpdateQuery } from "mongoose";
 import { TodoItem } from "src/modules/todo-item/infrastructure/database/todo-item.schema";
+import { first } from "rxjs";
 
 export class TodoListRepository implements IRepository<TodoList> {
     constructor(
@@ -27,17 +28,23 @@ export class TodoListRepository implements IRepository<TodoList> {
     }
 
     async find(filter: FilterQuery<TodoList>): Promise<TodoListDocument[]> {
-        filter={ userId: new Types.ObjectId('66fc02905a7101c14fedf432') }
+        filter = { userId: new Types.ObjectId('66fc02905a7101c14fedf432') }
         return await this.todoListRepository.find(filter)
             .populate(TodoItem.name)
             .lean();
     }
 
-    async update(id: Types.ObjectId, todoList: Partial<TodoList>): Promise<TodoListDocument> {
-        let upTodoList = await this.todoListRepository.findByIdAndUpdate(id, todoList, { new: true });
-        return upTodoList.toObject();
+    async update(id: Types.ObjectId, { todoItems, ...todoList }: UpdateQuery<TodoList>): Promise<TodoListDocument> {
+        let filter: UpdateQuery<TodoList> = todoList;
+        if (todoItems) {
+            filter = {
+                ...filter,
+                $push: { todoItems: todoItems }
+            }
+            let upTodoList = await this.todoListRepository.findByIdAndUpdate(id, filter, { new: true });
+            return upTodoList.toObject();
+        }
     }
-
     async delete(id: Types.ObjectId): Promise<void> {
         return await this.todoListRepository.findByIdAndDelete(id);
     }

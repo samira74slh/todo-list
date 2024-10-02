@@ -19,7 +19,7 @@ export class TodoListController {
     ) { }
 
     @ApiOperation({ summary: 'Creat New TodoList' })
-    @ApiConsumes('application/x-www-form-urlencoded')
+    @ApiConsumes('application/json')
     @ApiCreatedResponse({ type: '' })
     @Post('todo/ls')
     async createTodoList(

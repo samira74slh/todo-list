@@ -20,13 +20,16 @@ export class TodoItemDto {
     description: string;
 
     @ApiProperty({
+        type: String,
         enum: PriorityLevel
     })
     @IsNotEmpty()
     @IsEnum(PriorityLevel)
     priority: PriorityLevel;
 
-    @ApiProperty()
+    @ApiProperty({
+        type: String
+    })
     @IsNotEmpty()
     @Transform(({ value }) => Types.ObjectId.createFromHexString(value))
     todoListId: Types.ObjectId;
