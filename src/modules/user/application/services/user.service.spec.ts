@@ -83,6 +83,13 @@ describe('UserService', () => {
     });
 
     describe('getUserById', () => {
+        it('should return "User not found"', async () => {
+            const idDto: IdDTo = { id: _id };
+            mockQueryBus.execute.mockResolvedValueOnce(null);
+
+            const result = await userService.getUserById(idDto);
+            expect(result).toBe('User not found');
+        });
         it('should return a user by ID', async () => {
             const idDto: IdDTo = { id: _id };
             const user = { _id, username };

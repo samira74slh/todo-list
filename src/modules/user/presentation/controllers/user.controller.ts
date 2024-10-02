@@ -1,4 +1,4 @@
-import { ApiBadRequestResponse, ApiConsumes, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBadRequestResponse, ApiConsumes, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { UserService } from "../../application/services/user.service";
 import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseGuards } from "@nestjs/common";
 import { CreateUserDto } from "../../application/dto/create-user.dto";
@@ -36,6 +36,7 @@ export class UserController {
 
     @ApiOperation({ summary: 'Login the user' })
     @ApiConsumes('application/x-www-form-urlencoded')
+    @ApiCreatedResponse({ type: UserWithTokenResDto })
     @UseGuards(LocalAuthGuard)
     @Post('/login')
     async login(
@@ -50,6 +51,7 @@ export class UserController {
     @ApiOperation({ summary: 'Get user by id' })
     @ApiConsumes('application/x-www-form-urlencoded')
     @ApiOkResponse({ type: UserDto })
+    @ApiNotFoundResponse()
     @Auth()
     @Get('/:id')
     async getUser(
@@ -58,7 +60,7 @@ export class UserController {
     ) {
         let response = await this.userService.getUserById(param);
         let status = HttpStatus.OK;
-        if (!response)
+        if (typeof response == 'string')
             status = HttpStatus.NOT_FOUND;
         res.status(status).json(response)
     }

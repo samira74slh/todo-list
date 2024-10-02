@@ -49,9 +49,13 @@ export class UserService {
         }
     }
 
-    async getUserById({ id }: IdDTo): Promise<User> {
+    async getUserById({ id }: IdDTo): Promise<UserWithTokenResDto | string> {
         try {
-            return await this.queryBus.execute(new GetUserByIdQuery(id));
+            const user = await this.queryBus.execute(new GetUserByIdQuery(id));
+            if (!user)
+                return "User not found"
+            else
+                return { _id: user._id, username: user.username, token: user.token }
         } catch (error) {
             throw new Error(error);
         }
