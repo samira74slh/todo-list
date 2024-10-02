@@ -1,6 +1,7 @@
-import {  Types } from "mongoose";
+import { Types } from "mongoose";
+import { idType } from "src/shared/types/id-type";
 
 export interface IJWTPayload {
-    _id: string | Types.ObjectId;
+    _id: idType;
     username: string;
 }

@@ -18,12 +18,16 @@ export class UserRepository implements IRepository<User> {
         return await this.userRepository.findOne(filter).lean();
     }
 
-    async findById(id: Types.ObjectId): Promise<User | null> {
+    async findById(id: Types.ObjectId): Promise<UserDocument | null> {
         return await this.userRepository.findById(id);
     }
 
     async findAll(): Promise<User[]> {
         return await this.userRepository.find().lean();
+    }
+
+    async find(filter: FilterQuery<User>): Promise<UserDocument[]> {
+        return await this.userRepository.find(filter).lean();
     }
 
     async update(id: Types.ObjectId, user: User): Promise<UserDocument> {

@@ -1,10 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString, Min, MinLength } from "class-validator";
 import { Types } from "mongoose";
+import { idType } from "src/shared/types/id-type";
 
 export class UserDto {
     @ApiProperty()
-    _id: string | Types.ObjectId;
+    _id: idType;
 
     @ApiProperty()
     @IsNotEmpty()
