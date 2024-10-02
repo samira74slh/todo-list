@@ -3,13 +3,13 @@ import { UserService } from "../../application/services/user.service";
 import { Body, Controller, Get, HttpStatus, Param, Post, Res, UseGuards } from "@nestjs/common";
 import { CreateUserDto } from "../../application/dto/create-user.dto";
 import { Response } from "express";
-import { IdDTo } from "src/shared/dto/id.dto";
+import { IdDTo } from "../../../../shared/dto/id.dto";
 import { UserDto } from "../../application/dto/user.dto";
 import { UserWithTokenResDto } from "../../application/dto/user-with-token-res.dto";
-import { LocalAuthGuard } from "src/modules/auth/presentation/guards/local-auth.guard";
 import { USER } from "../decorators/user.decorator";
 import { UserDocument } from "../../infrastructure/database/user.schema";
-import { Auth } from "src/modules/auth/presentation/decorators/auth.decorator";
+import { Auth } from '../../../auth/presentation/decorators/auth.decorator';
+import { LocalAuthGuard } from '../../../auth/presentation/guards/local-auth.guard';
 
 @ApiTags('User')
 @Controller('user')

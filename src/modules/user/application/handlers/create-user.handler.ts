@@ -3,9 +3,9 @@ import { CreateUserCommand } from '../commands/create-user.command';
 import { User } from '../../infrastructure/database/user.schema';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { UserWithTokenResDto } from '../dto/user-with-token-res.dto';
-import { AuthService } from 'src/modules/auth/application/services/auth.service';
 import { forwardRef, Inject } from '@nestjs/common';
 import { UserWelcomeEvent } from '../events/user-welcom.event';
+import { AuthService } from '../../../auth/application/services/auth.service';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {

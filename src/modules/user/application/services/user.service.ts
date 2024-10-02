@@ -4,13 +4,13 @@ import { CreateUserDto } from "../dto/create-user.dto";
 import { User, UserDocument } from "../../infrastructure/database/user.schema";
 import { CreateUserCommand } from "../commands/create-user.command";
 import { Password } from "../../domain/value-objects/password.vo";
-import { IdDTo } from "src/shared/dto/id.dto";
+import { IdDTo } from "../../../../shared/dto/id.dto";
 import { GetUserByIdQuery } from "../queries/get-user.query";
 import { UserOptionalDto } from "../dto/user-optional.dto";
 import { GetUserByFilterQuery } from "../queries/get-user-by-filter.query";
 import { UserWithTokenResDto } from "../dto/user-with-token-res.dto";
-import { AuthService } from "src/modules/auth/application/services/auth.service";
 import { UserWelcomeEvent } from "../events/user-welcom.event";
+import { AuthService } from '../../../auth/application/services/auth.service';
 
 @Injectable()
 export class UserService {

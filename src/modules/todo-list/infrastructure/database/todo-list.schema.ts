@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Types } from 'mongoose';
-import { TodoItem } from "src/modules/todo-item/infrastructure/database/todo-item.schema";
-import { User } from "src/modules/user/infrastructure/database/user.schema";
+import { User } from '../../../user/infrastructure/database/user.schema';
+import { TodoItem } from '../../../todo-item/infrastructure/database/todo-item.schema';
 
 export type TodoListDocument = HydratedDocument<TodoList>;
 

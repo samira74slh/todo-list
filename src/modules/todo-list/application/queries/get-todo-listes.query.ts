@@ -1,4 +1,4 @@
-import { idType } from "src/shared/types/id-type";
+import { idType } from "../../../../shared/types/id-type";
 
 export class GetTodoListsQuery {
   constructor(

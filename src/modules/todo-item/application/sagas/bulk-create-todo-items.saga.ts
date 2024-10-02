@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
-import { CommandBus, EventBus, ICommand, ofType, Saga } from "@nestjs/cqrs";
-import { catchError, from, map, Observable, of, switchMap } from "rxjs";
+import { CommandBus, EventBus, ofType, Saga } from "@nestjs/cqrs";
+import { from, Observable, switchMap } from "rxjs";
 import { BulkCreateTodoListEvent } from "../events/bulk-create-todo-items.event";
-import { BulkCreateTodoItemCommand } from "src/modules/todo-item/application/commands/bulk-create-todo-item.command";
-import { ETodoItem } from "src/modules/todo-item/domain/entities/todo-item.entity";
-import { Priority } from "src/modules/todo-item/domain/value-objects/priority.vo";
 import { Types } from 'mongoose';
-import { UpdateTodoListCommand } from "src/modules/todo-list/application/commands/update-todo-list.command";
+import { BulkCreateTodoItemCommand } from '../commands/bulk-create-todo-item.command';
+import { ETodoItem } from '../../domain/entities/todo-item.entity';
+import { Priority } from '../../domain/value-objects/priority.vo';
+import { UpdateTodoListCommand } from '../../../todo-list/application/commands/update-todo-list.command';
 
 @Injectable()
 export class BulkCreateTodoItemsSagas {

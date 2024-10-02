@@ -2,14 +2,14 @@
 import { ApiConsumes, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { TodoItemService } from "../../application/services/todo-item.service";
 import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
-import { Auth } from "src/modules/auth/presentation/decorators/auth.decorator";
-import { BulkCreateTodoItemDto, CreateTodoItemDto } from "../../application/dto/create-todo-item.dto";
+import { BulkCreateTodoItemDto } from "../../application/dto/create-todo-item.dto";
 import { Response } from "express";
-import { UserDocument } from "src/modules/user/infrastructure/database/user.schema";
-import { USER } from "src/modules/user/presentation/decorators/user.decorator";
-import { IdDTo } from "src/shared/dto/id.dto";
 import { UpdateTodoItemDto } from '../../application/dto/update-todo-item.dto';
 import { TodoItemDto } from "../../application/dto/todo-item.dto";
+import { UserDocument } from '../../../user/infrastructure/database/user.schema';
+import { USER } from '../../../user/presentation/decorators/user.decorator';
+import { Auth } from '../../../auth/presentation/decorators/auth.decorator';
+import { IdDTo } from '../../../../shared/dto/id.dto';
 
 @ApiTags('TodoItem')
 @Auth()

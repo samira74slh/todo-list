@@ -1,19 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { CommandBus, EventBus, ICommand, ofType, Saga } from "@nestjs/cqrs";
-import { map, mergeMap, Observable } from "rxjs";
-import { CreateTodoListEvent } from "../events/create-todo-list.event";
-import { CreateTodoListCommand } from "../commands/create-todo-list.command";
-import { AddUserTodoListsCommand } from "src/modules/user/application/commands/add-user-todo-lists.command";
-import { BulkCreateTodoItemCommand } from "src/modules/todo-item/application/commands/bulk-create-todo-item.command";
-import { ETodoItem } from "src/modules/todo-item/domain/entities/todo-item.entity";
-import { Priority } from "src/modules/todo-item/domain/value-objects/priority.vo";
-import { ObjectId, Types } from 'mongoose';
-import { MongooseOptionsFactory } from '@nestjs/mongoose';
-import { UpdateTodoListCommand } from "../commands/update-todo-list.command";
+import { map,  Observable } from "rxjs";
 import { DeleteTodoListEvent } from "../events/delete-todo-list.event";
 import { DeleteTodoListCommand } from "../commands/delete-todo-list.command";
-import { DeleteItemByListIdHandler } from "src/modules/todo-item/application/handlers/delete-item-by-list-id.handler";
-import { DeleteItemByListIdCommand } from "src/modules/todo-item/application/commands/delete-item-by-list-id.command";
+import { DeleteItemByListIdCommand } from '../../../todo-item/application/commands/delete-item-by-list-id.command';
 
 @Injectable()
 export class DeleteTodoListSagas {

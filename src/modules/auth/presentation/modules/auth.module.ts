@@ -1,11 +1,11 @@
 import { forwardRef, Module } from "@nestjs/common";
 import { ConfigModule, ConfigType } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
-import localConfig from "src/shared/config/local-config";
+import localConfig from "../../../../shared/config/local-config";
 import { AuthService } from "../../application/services/auth.service";
 import { JwtStrategy } from "../../infrastructure/strategy/jwt.strategy";
 import { LocalStrategy } from "../../infrastructure/strategy/local.strategy";
-import { UserModule } from "src/modules/user/presentation/modules/user.module";
+import { UserModule } from '../../../user/presentation/modules/user.module';
 
 @Module({
     imports: [

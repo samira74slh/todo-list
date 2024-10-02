@@ -1,10 +1,10 @@
 import { forwardRef, HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { IJWTPayload } from "../../domain/repositories/jwt-payload.interface";
-import { UserService } from "src/modules/user/application/services/user.service";
-import { Password } from "src/modules/user/domain/value-objects/password.vo";
-import { User } from "src/modules/user/infrastructure/database/user.schema";
+import { Password } from "../../../user/domain/value-objects/password.vo";
+import { User } from "../../../user/infrastructure/database/user.schema";
 import { IJWtValidate } from "../../domain/repositories/jwt-validate.interface";
+import { UserService } from '../../../user/application/services/user.service';
 
 @Injectable()
 export class AuthService {

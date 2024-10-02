@@ -1,5 +1,5 @@
 import { forwardRef, Module } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose"; import { AuthModule } from "src/modules/auth/presentation/modules/auth.module";
+import { MongooseModule } from "@nestjs/mongoose";
 import { CqrsModule } from "@nestjs/cqrs";
 import { TodoItemController } from "../controllers/todo-item.controller";
 import { TodoItem, TodoItemSchema } from "../../infrastructure/database/todo-item.schema";
@@ -10,9 +10,9 @@ import { GetTodoItemsHandler } from "../../application/handlers/get-todo-items.h
 import { GetTodoItemByIdHandler } from "../../application/handlers/get-todo-item.handler";
 import { UpdateTodoItemHandler } from "../../application/handlers/update-todo-item.handler";
 import { DeleteTodoItemHandler } from "../../application/handlers/delete-todo-item.handler";
-import { UserModule } from "src/modules/user/presentation/modules/user.module";
-import { TodoListModule } from "src/modules/todo-list/presentation/modules/todo-list.module";
 import { BulkCreateTodoItemsSagas } from "../../application/sagas/bulk-create-todo-items.saga";
+import { UserModule } from '../../../user/presentation/modules/user.module';
+import { TodoListModule } from '../../../todo-list/presentation/modules/todo-list.module';
 
 @Module({
     imports: [

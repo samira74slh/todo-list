@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument, Types } from "mongoose";
-import { TodoList } from "src/modules/todo-list/infrastructure/database/todo-list.schema";
 
 export type UserDocument = HydratedDocument<User>;
 @Schema({ validateBeforeSave: true, versionKey: false })

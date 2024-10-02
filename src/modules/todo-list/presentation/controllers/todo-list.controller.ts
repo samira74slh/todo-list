@@ -2,13 +2,13 @@
 import { ApiConsumes, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { TodoListService } from "../../application/services/todo-list.service";
 import { Body, Controller, Delete, Get, HttpStatus, Param, Patch, Post, Res } from "@nestjs/common";
-import { Auth } from "src/modules/auth/presentation/decorators/auth.decorator";
 import { CreateTodoListDto } from "../../application/dto/create-todo-list.dto";
 import { Response } from "express";
-import { UserDocument } from "src/modules/user/infrastructure/database/user.schema";
-import { USER } from "src/modules/user/presentation/decorators/user.decorator";
-import { IdDTo } from "src/shared/dto/id.dto";
+import { IdDTo } from "../../../../shared/dto/id.dto";
 import { UpdateTodoListDto } from '../../application/dto/update-todo-list.dto';
+import { Auth } from '../../../auth/presentation/decorators/auth.decorator';
+import { USER } from '../../../user/presentation/decorators/user.decorator';
+import { UserDocument } from '../../../user/infrastructure/database/user.schema';
 
 @ApiTags('TodoList')
 @Auth()

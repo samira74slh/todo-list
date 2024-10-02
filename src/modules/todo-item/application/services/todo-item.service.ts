@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, EventBus, QueryBus } from "@nestjs/cqrs";
 import { BulkCreateTodoItemDto } from "../dto/create-todo-item.dto";
-import { UserDocument } from "src/modules/user/infrastructure/database/user.schema";
 import { UpdateTodoItemDto } from "../dto/update-todo-item.dto";
 import { IdDTo } from '../../../../shared/dto/id.dto';
 import { UpdateTodoItemCommand } from '../commands/update-todo-item.command';
@@ -10,9 +9,8 @@ import { GetTodoItemsQuery } from '../queries/get-todo-items.query';
 import { GetTodoItemByIdQuery } from '../queries/get-todo-item.query';
 import { TodoItemDocument } from '../../infrastructure/database/todo-item.schema';
 import { Priority } from '../../domain/value-objects/priority.vo';
-import { ETodoItem } from '../../domain/entities/todo-item.entity';
-import { BulkCreateTodoItemCommand } from '../commands/bulk-create-todo-item.command';
 import { BulkCreateTodoListEvent } from '../events/bulk-create-todo-items.event';
+import { UserDocument } from '../../../user/infrastructure/database/user.schema';
 
 @Injectable()
 export class TodoItemService {

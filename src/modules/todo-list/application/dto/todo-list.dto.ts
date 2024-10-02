@@ -2,8 +2,8 @@ import { ApiProperty, ApiPropertyOptional, PickType } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Types } from "mongoose";
-import { TodoItemDto } from "src/modules/todo-item/application/dto/todo-item.dto";
-import { idType } from "src/shared/types/id-type";
+import { TodoItemDto } from '../../../todo-item/application/dto/todo-item.dto';
+import { idType } from '../../../../shared/types/id-type';
 
 export class LocalTodoItemDto extends PickType(TodoItemDto, ['description', 'priority', 'title']) { }
 

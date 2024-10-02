@@ -1,4 +1,4 @@
-import { entityIdType, idType } from "src/shared/types/id-type";
+import { entityIdType, idType } from "../../../../shared/types/id-type";
 import { Types } from "mongoose";
 
 export class ETodoList {

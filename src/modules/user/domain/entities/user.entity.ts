@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { Password } from "../value-objects/password.vo";
-import { entityIdType } from "src/shared/types/id-type";
+import { entityIdType } from "../../../../shared/types/id-type";
 
 export class EUser {
     constructor(

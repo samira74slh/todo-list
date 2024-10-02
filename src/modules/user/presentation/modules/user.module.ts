@@ -6,13 +6,13 @@ import { UserRepository } from "../../infrastructure/repositories/user.repositor
 import { CreateUserHandler } from "../../application/handlers/create-user.handler";
 import { GetUserHandler } from "../../application/handlers/get-user.handler";
 import { UserController } from "../controllers/user.controller";
-import { AuthModule } from "src/modules/auth/presentation/modules/auth.module";
 import { CqrsModule } from "@nestjs/cqrs";
 import { GetUserByFilterHandler } from "../../application/handlers/get-user-by-filter.handler";
-import { TodoItemModule } from "src/modules/todo-item/presentation/modules/todo-item.module";
-import { TodoListModule } from "src/modules/todo-list/presentation/modules/todo-list.module";
 import { SendWelcomeMsgHandler } from "../../application/handlers/user-welcome.handler";
 import { AddUserTodoListsHandller } from "../../application/handlers/add-user-todo-lists.handller";
+import { AuthModule } from '../../../auth/presentation/modules/auth.module';
+import { TodoListModule } from '../../../todo-list/presentation/modules/todo-list.module';
+import { TodoItemModule } from '../../../todo-item/presentation/modules/todo-item.module';
 
 @Module({
     imports: [

@@ -1,7 +1,6 @@
 import { Injectable, Param } from '@nestjs/common';
 import { CommandBus, EventBus, QueryBus } from "@nestjs/cqrs";
 import { CreateTodoListDto } from "../dto/create-todo-list.dto";
-import { UserDocument } from "src/modules/user/infrastructure/database/user.schema";
 import { UpdateTodoListDto } from "../dto/update-todo-list.dto";
 import { IdDTo } from '../../../../shared/dto/id.dto';
 import { UpdateTodoListCommand } from '../commands/update-todo-list.command';
@@ -10,6 +9,7 @@ import { GetTodoListsQuery } from '../queries/get-todo-listes.query';
 import { GetTodoListByIdQuery } from '../queries/get-todo-list.query';
 import { TodoListDocument } from '../../infrastructure/database/todo-list.schema';
 import { CreateTodoListEvent } from '../events/create-todo-list.event';
+import { UserDocument } from '../../../user/infrastructure/database/user.schema';
 
 @Injectable()
 export class TodoListService {

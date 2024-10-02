@@ -1,4 +1,4 @@
-import { IRepository } from "src/shared/interfaces/repository.interface";
+import { IRepository } from "../../../../shared/interfaces/repository.interface";
 import { TodoItem, TodoItemDocument } from '../database/todo-item.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, RootFilterQuery, Types } from "mongoose";

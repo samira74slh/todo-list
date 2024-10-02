@@ -1,7 +1,7 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { User, UserDocument } from "../../infrastructure/database/user.schema";
 import { FilterQuery, Model, Types, UpdateQuery } from "mongoose";
-import { IRepository } from "src/shared/interfaces/repository.interface";
+import { IRepository } from "../../../../shared/interfaces/repository.interface";
 
 
 export class UserRepository implements IRepository<User> {
