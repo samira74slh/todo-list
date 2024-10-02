@@ -2,6 +2,7 @@ import { IRepository } from "src/shared/interfaces/repository.interface";
 import { TodoList, TodoListDocument } from '../database/todo-list.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model, Types } from "mongoose";
+import { TodoItem } from "src/modules/todo-item/infrastructure/database/todo-item.schema";
 
 export class TodoListRepository implements IRepository<TodoList> {
     constructor(
@@ -27,7 +28,7 @@ export class TodoListRepository implements IRepository<TodoList> {
 
     async find(filter: FilterQuery<TodoList>): Promise<TodoListDocument[]> {
         return await this.todoListRepository.find(filter)
-            // .populate(TodoItem.name)
+            .populate(TodoItem.name)
             .lean();
     }
 

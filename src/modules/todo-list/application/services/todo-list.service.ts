@@ -5,7 +5,7 @@ import { CreateTodoListCommand } from "../commands/create-todo-list.command";
 import { UserDocument } from "src/modules/user/infrastructure/database/user.schema";
 import { UpdateTodoListDto } from "../dto/update-todo-list.dto";
 import { IdDTo } from '../../../../shared/dto/id.dto';
-import { UpdateTodoListCommand } from '../commands/update-todo-list.command copy';
+import { UpdateTodoListCommand } from '../commands/update-todo-list.command';
 import { DeleteTodoListCommand } from '../commands/delete-todo-list.command';
 import { GetTodoListsQuery } from '../queries/get-todo-listes.query';
 import { GetTodoListByIdQuery } from '../queries/get-todo-list.query';

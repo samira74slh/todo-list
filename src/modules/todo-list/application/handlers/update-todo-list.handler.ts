@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { TodoListRepository } from '../../infrastructure/repositories/todo-list.repository';
 import { TodoList, TodoListDocument } from '../../infrastructure/database/todo-list.schema';
-import { UpdateTodoListCommand } from '../commands/update-todo-list.command copy';
+import { UpdateTodoListCommand } from '../commands/update-todo-list.command';
 
 @CommandHandler(UpdateTodoListCommand)
 export class UpdateTodoListHandler implements ICommandHandler<UpdateTodoListCommand> {

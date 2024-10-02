@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Types } from "mongoose";
 import { idType } from "src/shared/types/id-type";
 
@@ -19,8 +19,9 @@ export class TodoListDto {
     userId: Types.ObjectId;
 
     @ApiPropertyOptional({
-        type: String
+        type: [String]
     })
+    @IsArray()
     @IsOptional()
     @Transform(({ value }) => value?.map((val: string) => Types.ObjectId.createFromHexString(val)))
     todoItems?: Types.ObjectId[];
