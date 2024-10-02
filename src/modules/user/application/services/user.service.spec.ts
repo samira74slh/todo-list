@@ -3,10 +3,9 @@ import { UserService } from './user.service';
 import { AuthService } from '../../../auth/application/services/auth.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserDocument } from '../../infrastructure/database/user.schema';
-import { UserWelcomeEvent } from '../events/user-welcom.event';
 import { IdDTo } from '../../../../shared/dto/id.dto';
-import { Test, TestingModule, TestingModuleBuilder } from '@nestjs/testing';
-import { ObjectId, Types } from 'mongoose';
+import { Test, TestingModule } from '@nestjs/testing';
+import { Types } from 'mongoose';
 
 const mockCommandBus = { execute: jest.fn() };
 const mockQueryBus = { execute: jest.fn() };
@@ -54,17 +53,20 @@ describe('UserService', () => {
             expect(result).toBe('Duplicate username');
         });
 
+        it('should throw an error if queryBus throws an error in createUser', async () => {
+            const userDto: CreateUserDto = { username, password };
+            mockQueryBus.execute.mockRejectedValueOnce(new Error('Database Error'));
+
+            await expect(userService.createUser(userDto)).rejects.toThrow('Database Error');
+        });
+
         it('should create a user if username is available', async () => {
             const userDto: CreateUserDto = { username, password };
             mockQueryBus.execute.mockResolvedValueOnce(null);
             mockCommandBus.execute.mockResolvedValueOnce({ _id, ...userDto, token });
+
             const result = await userService.createUser(userDto);
-            // expect(result).toEqual({ username, _id, token });
-            // console.log(result);
-            // console.log({ username, _id, token });
-            expect(result).toHaveProperty('_id', _id);
-            expect(result).toHaveProperty('_id', _id);
-            expect(result).toHaveProperty('token', token);
+            expect(result).toEqual(expect.objectContaining({ _id, username, token }));
         });
     });
 
@@ -77,7 +79,6 @@ describe('UserService', () => {
             const result = await userService.login(user);
             expect(result).toEqual({ _id, username, token });
             expect(mockAuthService.getAccessToken).toHaveBeenCalledWith(user);
-            // expect(mockEventBus.publish).toHaveBeenCalledWith(new UserWelcomeEvent(user.username));
         });
     });
 
