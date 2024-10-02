@@ -56,6 +56,7 @@ export class TodoListService {
     async getAllUserTodoLists({ id }: IdDTo, user: UserDocument): Promise<TodoListDocument[] | string> {
         try {
             if (id == user._id) {
+                console.log()
                 return await this.queryBus.execute(new GetTodoListsQuery(id));
             } else return 'Not permission';
         } catch (error) {

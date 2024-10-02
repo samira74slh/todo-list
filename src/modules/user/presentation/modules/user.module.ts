@@ -9,12 +9,18 @@ import { UserController } from "../controllers/user.controller";
 import { AuthModule } from "src/modules/auth/presentation/modules/auth.module";
 import { CqrsModule } from "@nestjs/cqrs";
 import { GetUserByFilterHandler } from "../../application/handlers/get-user-by-filter.handler";
+import { TodoItemModule } from "src/modules/todo-item/presentation/modules/todo-item.module";
+import { TodoListModule } from "src/modules/todo-list/presentation/modules/todo-list.module";
+import { SendWelcomeMsgHandler } from "../../application/handlers/user-welcome.handler";
 
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
         CqrsModule,
         forwardRef(() => AuthModule),
+        forwardRef(() => TodoListModule),
+        forwardRef(() => TodoItemModule),
+
     ],
     controllers: [UserController],
     providers: [
@@ -22,7 +28,8 @@ import { GetUserByFilterHandler } from "../../application/handlers/get-user-by-f
         UserRepository,
         CreateUserHandler,
         GetUserHandler,
-        GetUserByFilterHandler
+        GetUserByFilterHandler,
+        SendWelcomeMsgHandler
     ],
     exports: [UserService]
 })

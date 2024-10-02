@@ -1,6 +1,6 @@
 import { idType } from "src/shared/types/id-type";
 
-export class GetTodoListsQuery {
+export class GetTodoItemsQuery {
   constructor(
     public readonly id: idType,
   ) { }

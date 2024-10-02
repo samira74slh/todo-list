@@ -23,6 +23,6 @@ export class TodoListDto {
     })
     @IsArray()
     @IsOptional()
-    @Transform(({ value }) => value?.map((val: string) => Types.ObjectId.createFromHexString(val)))
+    @Transform(({ value }) => value.split(',')?.map((val: string) => Types.ObjectId.createFromHexString(val)))
     todoItems?: Types.ObjectId[];
 }

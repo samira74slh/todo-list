@@ -27,6 +27,7 @@ export class TodoListRepository implements IRepository<TodoList> {
     }
 
     async find(filter: FilterQuery<TodoList>): Promise<TodoListDocument[]> {
+        filter={ userId: new Types.ObjectId('66fc02905a7101c14fedf432') }
         return await this.todoListRepository.find(filter)
             .populate(TodoItem.name)
             .lean();

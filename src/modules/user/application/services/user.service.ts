@@ -1,5 +1,5 @@
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
-import { CommandBus, QueryBus } from "@nestjs/cqrs";
+import { CommandBus, QueryBus, EventBus } from '@nestjs/cqrs';
 import { CreateUserDto } from "../dto/create-user.dto";
 import { User, UserDocument } from "../../infrastructure/database/user.schema";
 import { CreateUserCommand } from "../commands/create-user.command";
@@ -10,12 +10,14 @@ import { UserOptionalDto } from "../dto/user-optional.dto";
 import { GetUserByFilterQuery } from "../queries/get-user-by-filter.query";
 import { UserWithTokenResDto } from "../dto/user-with-token-res.dto";
 import { AuthService } from "src/modules/auth/application/services/auth.service";
+import { UserWelcomeEvent } from "../events/user-welcom.event";
 
 @Injectable()
 export class UserService {
     constructor(
         private readonly commandBus: CommandBus,
         private readonly queryBus: QueryBus,
+        private readonly eventBus: EventBus,
         @Inject(forwardRef(() => AuthService))
         private readonly authService: AuthService
     ) { }
@@ -36,6 +38,7 @@ export class UserService {
     async login({ username, _id }: UserDocument): Promise<UserWithTokenResDto> {
         try {
             const token = await this.authService.getAccessToken({ username, _id });
+            await this.eventBus.publish(new UserWelcomeEvent(username));
             return {
                 _id,
                 username,

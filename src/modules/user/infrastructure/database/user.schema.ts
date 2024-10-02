@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import {  HydratedDocument, Types } from "mongoose";
+import { HydratedDocument, Types } from "mongoose";
 import { TodoList } from "src/modules/todo-list/infrastructure/database/todo-list.schema";
 
 export type UserDocument = HydratedDocument<User>;
@@ -12,7 +12,7 @@ export class User {
     @Prop({ required: true })
     password: string;
 
-    @Prop({ type: [Types.ObjectId], ref: TodoList.name })
+    @Prop({ type: [Types.ObjectId], ref: 'TodoList' })
     todoLists: Types.ObjectId[]
 }
 

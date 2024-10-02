@@ -24,7 +24,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
         let newUser = await this.userRepository.create(user);
         delete newUser.password;
         const token = await this.authService.getAccessToken(newUser);
-        this.eventBus.publish(UserWelcomeEvent)
+        await this.eventBus.publish(new UserWelcomeEvent(username));
         return { ...newUser, token };
     }
 }
