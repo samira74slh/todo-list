@@ -11,6 +11,9 @@ import { TodoItemDocument } from '../../infrastructure/database/todo-item.schema
 import { Priority } from '../../domain/value-objects/priority.vo';
 import { BulkCreateTodoListEvent } from '../events/bulk-create-todo-items.event';
 import { UserDocument } from '../../../user/infrastructure/database/user.schema';
+import { BulkCreateTodoItemsSagas } from '../sagas/bulk-create-todo-items.saga';
+import { firstValueFrom } from 'rxjs';
+import { TodoItemDto } from '../dto/todo-item.dto';
 
 @Injectable()
 export class TodoItemService {
@@ -18,11 +21,13 @@ export class TodoItemService {
         private readonly commandBus: CommandBus,
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
+        private readonly bulkCreateSaga: BulkCreateTodoItemsSagas
     ) { }
 
-    async bulkCreateTodoItem({ todoItems }: BulkCreateTodoItemDto): Promise<TodoItemDocument> {
+    async bulkCreateTodoItem({ todoItems }: BulkCreateTodoItemDto): Promise<TodoItemDto[]> {
         try {
-            return await this.eventBus.publish(new BulkCreateTodoListEvent(todoItems));
+            await this.eventBus.publish(new BulkCreateTodoListEvent(todoItems));
+            return await firstValueFrom(this.bulkCreateSaga.getResponse());
         } catch (error) {
             throw new Error(error);
         }

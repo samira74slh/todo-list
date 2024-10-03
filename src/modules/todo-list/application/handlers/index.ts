@@ -5,12 +5,12 @@ import { GetTodoListByIdHandler } from "./get-todo-list.handler";
 import { GetTodoListsHandler } from "./get-todo-lists.handler";
 import { UpdateTodoListHandler } from "./update-todo-list.handler";
 
-export const CommandHandllers = [
+export const ListCommandHandllers = [
     CreateTodoListHandler,
     UpdateTodoListHandler,
     DeleteTodoListHandler
 ];
-export const QueryHandllers = [
+export const ListQueryHandllers = [
     GetTodoListsHandler,
     GetTodoListByIdHandler
 ];

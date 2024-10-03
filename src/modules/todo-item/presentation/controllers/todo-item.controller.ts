@@ -21,7 +21,7 @@ export class TodoItemController {
 
     @ApiOperation({ summary: 'Creat New todo items' })
     @ApiConsumes('application/json')
-    @ApiCreatedResponse({ type: '' })
+    @ApiCreatedResponse({ type: [TodoItemDto] })
     @Post('todo/itm')
     async bulkCreateTodoItem(
         @Body() todoItems: BulkCreateTodoItemDto,

@@ -6,7 +6,7 @@ import { TodoList, TodoListSchema } from "../../infrastructure/database/todo-lis
 import { TodoListService } from "../../application/services/todo-list.service";
 import { TodoListRepository } from "../../infrastructure/repositories/todo-list.repository";
 import { CreateTodoListSagas } from "../../application/sagas/create-todo-list.saga";
-import { CommandHandllers, QueryHandllers } from "../../application/handlers";
+import { ListCommandHandllers, ListQueryHandllers } from "../../application/handlers";
 import { UserModule } from '../../../user/presentation/modules/user.module';
 import { TodoItemModule } from '../../../todo-item/presentation/modules/todo-item.module';
 
@@ -23,8 +23,8 @@ import { TodoItemModule } from '../../../todo-item/presentation/modules/todo-ite
         TodoListService,
         TodoListRepository,
         CreateTodoListSagas,
-        ...CommandHandllers,
-        ...QueryHandllers
+        ...ListCommandHandllers,
+        ...ListQueryHandllers
     ],
     exports: [TodoListService]
 })
