@@ -9,6 +9,7 @@ import { UpdateTodoListDto } from '../../application/dto/update-todo-list.dto';
 import { Auth } from '../../../auth/presentation/decorators/auth.decorator';
 import { USER } from '../../../user/presentation/decorators/user.decorator';
 import { UserDocument } from '../../../user/infrastructure/database/user.schema';
+import { TodoListDto } from "../../application/dto/todo-list.dto";
 
 @ApiTags('TodoList')
 @Auth()
@@ -20,7 +21,7 @@ export class TodoListController {
 
     @ApiOperation({ summary: 'Creat New TodoList' })
     @ApiConsumes('application/json')
-    @ApiCreatedResponse({ type: '' })
+    @ApiCreatedResponse({ type: TodoListDto })
     @Post('todo/ls')
     async createTodoList(
         @Body() todoList: CreateTodoListDto,

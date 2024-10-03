@@ -10,6 +10,9 @@ import { GetTodoListByIdQuery } from '../queries/get-todo-list.query';
 import { TodoListDocument } from '../../infrastructure/database/todo-list.schema';
 import { CreateTodoListEvent } from '../events/create-todo-list.event';
 import { UserDocument } from '../../../user/infrastructure/database/user.schema';
+import { CreateTodoListSagas } from '../sagas/create-todo-list.saga';
+import { firstValueFrom } from 'rxjs';
+import { TodoListDto } from '../dto/todo-list.dto';
 
 @Injectable()
 export class TodoListService {
@@ -17,11 +20,13 @@ export class TodoListService {
         private readonly commandBus: CommandBus,
         private readonly queryBus: QueryBus,
         private readonly eventBus: EventBus,
+        private readonly createListSaga: CreateTodoListSagas
     ) { }
 
-    async createTodoList({ title, todoItems }: CreateTodoListDto, { _id }: UserDocument): Promise<TodoListDocument> {
+    async createTodoList({ title, todoItems }: CreateTodoListDto, { _id }: UserDocument): Promise<TodoListDto> {
         try {
-            return await this.eventBus.publish(new CreateTodoListEvent(title, _id, todoItems));
+            await this.eventBus.publish(new CreateTodoListEvent(title, _id, todoItems));
+            return await firstValueFrom(this.createListSaga.getResponse());
         } catch (error) {
             throw new Error(error);
         }

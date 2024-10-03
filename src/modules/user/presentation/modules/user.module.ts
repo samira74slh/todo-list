@@ -3,16 +3,12 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { User, UserSchema } from "../../infrastructure/database/user.schema";
 import { UserService } from "../../application/services/user.service";
 import { UserRepository } from "../../infrastructure/repositories/user.repository";
-import { CreateUserHandler } from "../../application/handlers/create-user.handler";
-import { GetUserHandler } from "../../application/handlers/get-user.handler";
 import { UserController } from "../controllers/user.controller";
 import { CqrsModule } from "@nestjs/cqrs";
-import { GetUserByFilterHandler } from "../../application/handlers/get-user-by-filter.handler";
-import { SendWelcomeMsgHandler } from "../../application/handlers/user-welcome.handler";
-import { AddUserTodoListsHandller } from "../../application/handlers/add-user-todo-lists.handller";
 import { AuthModule } from '../../../auth/presentation/modules/auth.module';
 import { TodoListModule } from '../../../todo-list/presentation/modules/todo-list.module';
 import { TodoItemModule } from '../../../todo-item/presentation/modules/todo-item.module';
+import { UserCommandHandlers, UserEventHandlers, UserQueryHandlers } from "../../application/handlers";
 
 @Module({
     imports: [
@@ -27,11 +23,9 @@ import { TodoItemModule } from '../../../todo-item/presentation/modules/todo-ite
     providers: [
         UserService,
         UserRepository,
-        CreateUserHandler,
-        GetUserHandler,
-        GetUserByFilterHandler,
-        SendWelcomeMsgHandler,
-        AddUserTodoListsHandller
+        ...UserCommandHandlers,
+        ...UserQueryHandlers,
+        ...UserEventHandlers,
     ],
     exports: [UserService]
 })

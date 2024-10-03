@@ -13,11 +13,11 @@ import { RevertUpdateTodoListCommand } from "../commands/revert-update-todo-item
 
 @Injectable()
 export class BulkCreateTodoItemsSagas {
+    private responseSubject = new Subject<TodoItemDto[]>();
     constructor(
         private readonly commandBus: CommandBus,
         private readonly eventBus: EventBus
     ) { }
-    private responseSubject = new Subject<TodoItemDto[]>();
     @Saga()
     bulkCreateTodoItemsSaga = (events$: Observable<any>): Observable<void> => {
         return events$.pipe(

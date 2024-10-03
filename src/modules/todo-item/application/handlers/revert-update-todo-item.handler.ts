@@ -11,6 +11,6 @@ export class RevertUpdateTodoListHandler implements ICommandHandler<RevertUpdate
     ) { }
 
     async execute({ itemIds, id }: RevertUpdateTodoListCommand): Promise<TodoItemDocument> {
-        return await this.todoItemRepository.update(id, { $pullAll: { todoListId: itemIds } });
+        return await this.todoItemRepository.update(id, { $pullAll: { todoListId: { $each: itemIds } } });
     }
 }
